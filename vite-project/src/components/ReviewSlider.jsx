@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 // import axios from 'axios';
 const data=[
     {name:"Abhishek Raj",rating:4,image:'https://images.pexels.com/photos/2505026/pexels-photo-2505026.jpeg',description:"Alice is a software engineer with a passion for developing scalable web applications. She enjoys working with modern JavaScript frameworks and has a knack for solving complex algorithmic problems."},
@@ -17,20 +18,20 @@ const ReviewSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [reviewData, setReviewData] = useState([]);
 
-//   useEffect(() => {
-//     async function fetchData() {
-//       try {
-//         const response = await axios.get("https://finmap.onrender.com/api/v1/getAllReview");
-//         console.log('response data:', response.data);
-//         if (response.data.success === true) {
-//           setReviewData(response.data.data); // Update state with the fetched data
-//         }
-//       } catch (error) {
-//         console.error("Error fetching data:", error);
-//       }
-//     }
-//     fetchData();
-//   }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get("http://localhost:3001/api/v1/getAllReview");
+        console.log('response data:', response.data.data);
+        if (response.data.success === true) {
+          setReviewData(response.data.data); // Update state with the fetched data
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -69,11 +70,10 @@ const ReviewSlider = () => {
     ],
   };
 
-  // Function to generate star icons based on rating
   const generateStars = (rating) => {
     const stars = [];
     for (let i = 0; i < Math.floor(rating); i++) {
-      stars.push(<FontAwesomeIcon key={i} icon={faStar} className="text-yellow-500" />);
+      stars.push(<FontAwesomeIcon key={i} icon={faStar} className="text-orange-400" />);
     }
     for (let i = Math.floor(rating); i < 5; i++) {
       stars.push(<FontAwesomeIcon key={i} icon={faStar} className="text-gray-300" />);
@@ -81,7 +81,7 @@ const ReviewSlider = () => {
     return stars;
   };
 
-  // Function to truncate review text
+
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -94,25 +94,25 @@ const ReviewSlider = () => {
       <div className="container mx-auto px-4">
       <h2 className="text-2xl md:text-5xl great-vibes-regular custom-color1 text-center mt-8 mb-6 ">Customer Spotlight: Real Stories</h2>
         <Slider ref={sliderRef} {...settings} className=''>
-          {data.map((review, index) => (
+          {reviewData.map((review, index) => (
             <div key={index} className={` px-3 pb-4  ${index === currentIndex ? 'opacity-100' : 'opacity-100'} `}>
               <div className="bg-white rounded-lg shadow-md p-3  relative min-h-72 border-2 border-slate-800">
                 <div className=" flex flex-col items-center   mb-1">
                   <img 
-                    src={review.image}
+                    src='https://images.pexels.com/photos/2505026/pexels-photo-2505026.jpeg'
                     alt={review.name} 
                     className="w-16 h-16 rounded-full object-cover mr-4" 
                   />
                   <div>
-                    <h3 className="text-lg text-green-400  poppins">{review.name}</h3>
-                    <p className="text-gray-400 ">{review.profession}</p>
+                    <h3 className="text-lg text-green-400 text-center  poppins">{review.name}</h3>
+                    <p className="text-gray-400 text-center ">{review.profession}</p>
                   </div>
                   <div className="flex justify-center ">
                   {generateStars(review.rating)}
-                  {/* <span className="ml-2 text-gray-600">{review.rating}/5</span> */}
+                 
                 </div>
                 </div>
-                <p className="text-gray-900 mb-4 text-center poppins">{truncateText(review.description, 180)}</p> 
+                <p className="text-gray-900 mb-4 text-center poppins">{truncateText(review.review, 180)}</p> 
                 
               </div>
             </div>

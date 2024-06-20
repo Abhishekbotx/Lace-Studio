@@ -69,31 +69,74 @@
 .custom-pagination {
   display: flex;
   flex-direction: row;
-  gap: 0 0.2vw;
+  gap: 1vw;
   margin-left: 4vw;
-  padding-bottom: 10vh;
+  margin-bottom: 2vh;
+  padding-bottom: 0;
   /* justify-content: center; */
   align-items: center;
-  position: relative;
-  
-
+  position: absolute;
+  left: 10px;
 }
 
 .custom-pagination .swiper-pagination-bullet {
-  background: rgb(255, 255, 255);
-  background:  transparent;
+  background: transparent;
   opacity: 1;
   z-index: 50;
-  transform: scale(1.5);
   border: 1px solid white;
-  width:0.5rem
+  width: 0.5rem;
+  height: 0.5rem;
+  transition: transform 0.3s;
+  /* Ensure the bullets are centered */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scale:1.5;
+  gap: 3px;
+  position: relative;
+  bottom: 5vh;
+}
+
+.custom-pagination .swiper-pagination-bullet:first-child {
+  /* background: red;  Change the background color for demonstration */
+  /* transform: scale(1.5);  Adjust the scale */
+  /* border: 2px solid yellow;  Add a border for demonstration */
+    position: relative; 
+  bottom: 4.2vh; 
 }
 
 .custom-pagination .swiper-pagination-bullet-active {
   background: rgb(255, 255, 255);
   opacity: 1;
-  transform: scale(2);
+  transform: scale(1.7);
 }
+
+
+@media (max-width: 700px) {
+  .custom-pagination .swiper-pagination-bullet:first-child {
+    /* background: red;  Change the background color for demonstration */
+    /* transform: scale(1.5);  Adjust the scale */
+    /* border: 2px solid yellow;  Add a border for demonstration */
+      position: relative; 
+    bottom: 4.5vh; 
+  }
+}
+@media (max-width: 1024px) {
+  .custom-pagination .swiper-pagination-bullet:first-child {
+      position: relative; 
+    bottom: 4.7vh; 
+  }
+}
+
+@media (max-width:550px) {
+  .content-small-screen{
+    bottom:20vh;
+    left: 20vw;
+
+    
+  }
+}
+
 
 
 .custom-color1 {
@@ -224,7 +267,7 @@ input[type="checkbox"] {
   /* Remove most all native input styles */
   appearance: none;
   /* For iOS < 15 */
-  background-color: var(--form-background);
+  background-color: rgb(255, 254, 255);
   /* Not removed via appearance */
   margin: 0;
 
@@ -235,7 +278,7 @@ input[type="checkbox"] {
   border: 0.15em solid currentColor;
   border-radius: 0.15em;
   transform: translateY(-0.075em);
-
+  
   display: grid;
   place-content: center;
 }
@@ -246,15 +289,24 @@ input[type="checkbox"]::before {
   height: 0.65em;
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
   transform: scale(0);
+  background-color: rgb(24, 20, 24);
   transform-origin: bottom left;
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em var(--form-control-color);
   /* Windows High Contrast Mode */
-  background-color: purple ;
+  background-color: rgb(255, 255, 255) ;
 }
 
 input[type="checkbox"]:checked::before {
   transform: scale(1);
+  background-color: rgb(6, 6, 6);
+   
+
+}
+input[type="checkbox"]:checked::after {
+  transform: scale(1);
+  background-color: rgb(241, 241, 241);
+
 }
 
 /* input[type="checkbox"]:focus {
@@ -276,3 +328,10 @@ input[type="checkbox"]:disabled {
 }
 
 
+.hidden-class{
+
+  @media (max-width: 400px)  {
+    display: none;
+  }
+  
+}

@@ -62,13 +62,13 @@ const Navbar = () => {
       </div>
       <div className="   mt-4 md:mt-0 lg:pr-8 md:pr-8 flex items-center flex-col md:flex md:flex-row lg:flex lg:flex-row  raleway">
         <NavLink
-          to="/login"
+          to="/signin"
           className="text-white hover:cursor px-4 py-2 rounded mb-2 md:mb-0"
         >
           LOG IN
         </NavLink>
         <NavLink
-          to="/login"
+          to="/signup"
           className=" hover:cursor text-slate-800    bg-amber-200 px-4 py-2 rounded-sm"
         >
           SIGN UP

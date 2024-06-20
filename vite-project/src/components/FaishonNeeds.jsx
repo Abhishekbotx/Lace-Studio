@@ -14,7 +14,7 @@ const FaishonNeeds = () => {
                 <img
                     src={Image1}
                     alt="Fashion 1"
-                    className=" object-cover w-full h-full "
+                    className=" object-cover rounded-sm w-full h-full "
                 />
                 <p></p>
                 </div>

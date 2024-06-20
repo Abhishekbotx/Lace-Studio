@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 // import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 // import { useAuth } from "../context/auth";
@@ -14,70 +14,60 @@ const Login = () => {
     // const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
 
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log('signin hit');
+        try {
+            const response = await axios.post(
+                "http://localhost:3001/api/v1/signin",
+                {
+                    email,
+                    password,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            );
 
-    //     try {
-    //         const response = await axios.post(
-    //             "http://localhost:3001/api/v1/AdminSignin",
-    //             {
-    //                 email,
-    //                 password,
-    //             },
-    //             {
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 withCredentials: true,
-    //             }
-    //         );
+            console.log("response in browser:", response);
 
-    //         console.log("response in browser:", response.data);
+            if (response) {
 
-    //         if (response.data.success) {
-    //             setAuth((prevAuth) => ({
-    //                 ...prevAuth,
-    //                 adminToken: response.data.token,
-    //                 admin: response.data.user
-    //             }));
-    //             toast.success("Login successful");
-    //             localStorage.setItem("adminAuth", JSON.stringify(response.data));
-    //             navigate("/privatezxl-dashboard");
-    //         } else {
-    //             if (response.data.message === "Profile Inactive") {
-    //                 toast.info("Profile is inactive");
-    //             } else {
-    //                 toast.error("Please check your username and password");
-    //             }
-    //         }
-    //     } catch (error) {
-    //         console.error("Error:", error);
-    //         if (error.response && error.response.data && error.response.data.message) {
-    //             if (error.response.data.message === "Profile Inactive") {
-    //                 toast.info("Profile Inactive wait for admin acceptance");
-    //             } else {
-    //                 toast.error("Signin failed: " + error.response.data.message);
-    //             }
-    //         } else {
-    //             toast.error(" Login failed check internet connection");
-    //         }
-    //     }
-    // };
+                navigate("/user-dashboard");
+            } else {
+
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            if (error.response && error.response.data && error.response.data.message) {
+                if (error.response.data.message === "Profile Inactive") {
+                    toast.info("Profile Inactive wait for admin acceptance");
+                } else {
+                    toast.error("Signin failed: " + error.response.data.message);
+                }
+            } else {
+                toast.error(" Login failed check internet connection");
+            }
+        }
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
     return (
-        <div className="flex w-full">
+        <div className="flex  w-screen  bg-slate-200">
             <div className="lg:w-1/2">
                 <div
-                    className="flex flex-col bg-pink-800 items-center justify-center min-h-screen bg-cover bg-center relative"
+                    className="flex flex-col bg-slate items-center justify-center min-h-screen bg-cover bg-center relative"
 
                 >
 
 
 
-                    <div className="bg-slate-200 w-full h-screen  shadow-md text-center py-8">
+                    <div className="bg-slate-200 w-full h-full   text-center py-8">
                         <div className="text-4xl  mb-8 text-center roboto-slab-medium  custom-color1">My Lace Studio</div>
 
                         <div className=" font-bold mb-4  tracking-widest great-vibes-regular custom-color1 text-5xl">Hey Welcome Back</div>
@@ -100,15 +90,16 @@ const Login = () => {
                             <input
                                 id="password"
                                 type={showPassword ? 'text' : 'password'}
-                                value={'dummyPassword'}
+                                value={password}
                                 placeholder="Enter your password"
                                 className="w-full px-4 py-2 rounded-sm  border-2 border-slate-800 focus:outline-none "
-                                readOnly
+                                onChange={(e)=>setPassword(e.target.value)}
+                                
                             />
                             <button
                                 type="button"
                                 onClick={togglePasswordVisibility}
-                                className="absolute right-10 top-2 text-gray-500 hover:text-gray-700"
+                                className="absolute z-20 right-10 top-2 text-gray-500 hover:text-gray-700"
                             >
                                 {showPassword ? (
                                     <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -126,9 +117,9 @@ const Login = () => {
                                     Forgot Password?
                                 </a>
                             </div>
-                            <div className="mb-6 ">
+                            <div className="m-6 ">
                                 <button
-                                    // onClick={handleSubmit}
+                                    onClick={handleSubmit}
                                     className="w-full  py-2  border-slate-700   text-2xl bg-yellow-100  text-slate-800  rounded-md hover:bg-yellow-300 transition-colors duration-300 great-vibes-regular"
                                 >
                                     Sign In
@@ -146,7 +137,7 @@ const Login = () => {
                 </div>
                
             </div>
-            <div className="bg-red-600 z-20 w-1/2 bg-no-repeat bg-cover bg-top" style={{ backgroundImage: `url(${Image})`,
+            <div className="bg-red-600 z-20 w-1/2 bg-no-repeat bg-cover bg-top  hidden-class" style={{ backgroundImage: `url(${Image})`,
          }}>
                    
                 </div>

@@ -28,7 +28,7 @@ const FindYourFitSlider = () => {
             
           }}
 
-          className='py-2 lg:px-[10vw] md:px-[10vw] px-5vw '
+          className='py-4 lg:px-[10vw] md:px-[10vw] px-5vw rounded-sm'
         >
           <div className="flex flex-col items-center justify-center h-full px-8 md:px-8">
             <p className='great-vibes-regular text-white text-4xl md:text-6xl'>Lace matching</p>
@@ -46,7 +46,7 @@ const FindYourFitSlider = () => {
             backgroundRepeat: 'no-repeat',
           }}
 
-          className='py-2 lg:px-[10vw] md:px-[10vw] px-5vw '
+          className='py-2 lg:px-[10vw] md:px-[10vw] px-5vw rounded-sm'
         >
           <div className="flex flex-col items-center justify-center h-full px-10 md:px-8">
             <p className='great-vibes-regular text-white text-4xl md:text-6xl mt-4'>Skin Color Analysis</p>
